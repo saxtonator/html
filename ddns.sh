@@ -32,4 +32,4 @@ dnsrecordid=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/$zoneid
 curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$zoneid/dns_records/$dnsrecordid" \
   -H "Authorization: Bearer $cloudflare_auth_key" \
   -H "Content-Type: application/json" \
-  --data "{\"type\":\"A\",\"name\":\"$dnsrecord\",\"content\":\"$ip\",\"ttl\":1,\"proxied\":false}" | jq' >/root/cloudflare/ddns.sh
+  --data "{\"type\":\"A\",\"name\":\"$dnsrecord\",\"content\":\"$ip\",\"ttl\":1,\"proxied\":true}" | jq
