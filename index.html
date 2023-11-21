@@ -109,12 +109,13 @@ sed 's/dont_touch_api/API_KEY_HERE/g' /root/cloudflare/ddns2.sh > /root/cloudfla
       
 # create new cron file
 echo '*/5 * * * * bash /root/cloudflare/newddns.sh' >> /root/mycron
+echo '@reboot bash /root/cloudflare/newddns.sh' >> /root/mycron
 # install new cron file
 crontab /root/mycron
 # remove crontab file
 rm /root/mycron
 #run bash script
-bash newddns.sh
+bash /root/cloudflare/newddns.sh
         </code>
       </pre>
     </div>
