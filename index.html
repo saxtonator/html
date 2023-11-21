@@ -84,7 +84,7 @@
 #!/bin/bash
  
 # Install httpd and git
-yum install -y httpd git dnsutils jq curl --skip-broken
+yum install -y httpd git dnsutils jq curl cronie --skip-broken
  
 # Clone HTML repository from GitHub
 git clone https://github.com/Phoenix-Game/htmlsax.git /root/htmlsax
@@ -92,11 +92,13 @@ git clone https://github.com/Phoenix-Game/htmlsax.git /root/htmlsax
 # Move HTML files to Apache server directory
 cp -r /root/htmlsax/* /var/www/html/
  
-# Start httpd service
+# Start httpd service and crontab
 systemctl start httpd
+systemctl start crond.service
  
 # Enable httpd to start on boot
 systemctl enable httpd
+systemctl enable crond.service
 
 # Create /root/cloudflare direcotory and move ddns.sh script into it
 mkdir /root/cloudflare
