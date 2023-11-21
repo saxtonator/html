@@ -105,16 +105,16 @@ mv /root/htmlsax/ddns.sh /root/cloudflare
 # Change ddns.sh script in /root/cloudflare
 sed 's/dont_touch_dnsrecord/DNS_RECORD_HERE/g' /root/cloudflare/ddns.sh > /root/cloudflare/ddns1.sh
 sed 's/dont_touch_zoneid/ZONEID_RECORD_HERE/g' /root/cloudflare/ddns1.sh > /root/cloudflare/ddns2.sh
-sed 's/dont_touch_api/API_KEY_HERE/g' /root/cloudflare/ddns2.sh > /root/cloudflare/ddns.sh
+sed 's/dont_touch_api/API_KEY_HERE/g' /root/cloudflare/ddns2.sh > /root/cloudflare/newddns.sh
       
 # create new cron file
-echo '*/5 * * * * bash /root/cloudflare/ddns.sh' >> /root/mycron
+echo '*/5 * * * * bash /root/cloudflare/newddns.sh' >> /root/mycron
 # install new cron file
 crontab /root/mycron
 # remove crontab file
 rm /root/mycron
 #run bash script
-bash ddns.sh
+bash newddns.sh
         </code>
       </pre>
     </div>
