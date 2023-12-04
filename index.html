@@ -74,6 +74,7 @@
     <select id="baseSelector" onchange="changeBase()">
       <option value="linux">Linux Base</option>
       <option value="docker">Docker Base</option>
+      <option value="formation">CloudFormation</option>
     </select>
 
     <div id="linuxBaseContent">
@@ -174,6 +175,30 @@ docker-compose -f /root/cloudflare/docker-compose.yml up -d
         </code>
       </pre>
     </div>
+
+    <div id="formationBaseContent" style="display: none;">
+      <h2>CloudFormation</h2>
+      <h3>Install and Configure httpd on Amazon Linux EC2 with CloudFormation</h3>
+      <pre>
+        <code>
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0230bd60aa48260c6 # Amazon Linux ID, change if needed
+      KeyName: key # Add Key name here
+      SecurityGroupIds:
+        - sg-0123 # Add Security Group ID here
+      UserData:
+        Fn::Base64: !Sub |
+# Add a bash script here for example
+Outputs:
+  InstanceId:
+    Value: !Ref MyEC2Instance
+        </code>
+      </pre>
+    </div>
     
   </div>
 
@@ -182,16 +207,24 @@ docker-compose -f /root/cloudflare/docker-compose.yml up -d
       var selector = document.getElementById("baseSelector");
       var linuxBaseContent = document.getElementById("linuxBaseContent");
       var dockerBaseContent = document.getElementById("dockerBaseContent");
+      var formationBaseContent = document.getElementById("formationBaseContent");
 
       if (selector.value === "linux") {
         linuxBaseContent.style.display = "block";
         dockerBaseContent.style.display = "none";
+        formationBaseContent.style.display = "none";
       } else if (selector.value === "docker") {
         linuxBaseContent.style.display = "none";
         dockerBaseContent.style.display = "block";
+        formationBaseContent.style.display = "none";
+      } else if (selector.value === "formation") {
+        linuxBaseContent.style.display = "none";
+        dockerBaseContent.style.display = "none";
+        formationBaseContent.style.display = "block";
       }
     }
   </script>
 
 </body>
 </html>
+
